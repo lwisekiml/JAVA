@@ -13,6 +13,14 @@ public class helloworld {
 		else
 			System.out.println("false");
 		
+		int i = 1;
+		while(true) {
+			System.out.println(i);
+			i++;
+			if(i > 5)
+				break;
+		}
+		
 		
 	}
 
