@@ -28,7 +28,9 @@ public class helloworld {
 			System.out.println(i);
 		}
 		
+		System.out.println("-- Condition Operator ---");
+		int b = (5 < 4) ? 50 : 40;
+		System.out.println(b);
 		
 	}
-
 }
