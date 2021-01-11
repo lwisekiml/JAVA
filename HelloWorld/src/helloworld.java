@@ -2,11 +2,11 @@
 public class helloworld {
 
 	public static void main(String[] args) {
-		int num = 5;
+		int n = 5;
 		boolean exp = true;
 
 		System.out.println("Hello World");
-		System.out.println(num);
+		System.out.println(n);
 
 		System.out.println("--- if ---");
 		if (exp)
@@ -48,6 +48,19 @@ public class helloworld {
 				continue;
 			}
 		}
+		
+		System.out.println("-- floating point ---");
+		double num = 0.1;
 
+		for(i = 0; i < 1000; i++) {
+		    num += 0.1;
+		}
+		System.out.println(num);
+		
+		float num3 = 1.23456789f;
+		double num4 = 1.23456789;
+
+		System.out.println("float형  변수 num3 : " + num3);
+		System.out.println("double형 변수 num4 : " + num4);
 	}
 }
