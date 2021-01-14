@@ -75,7 +75,7 @@ public class helloworld {
 		System.out.println("|| 연산자에 의한 결과 : "+ result2);
 		System.out.println("! 연산자에 의한 결과 : "+ !result2);
 	
-		System.out.println("-- array ---");
+		System.out.println("-- 1 Dimension Array ---");
 		int[] grade1 = new int[3]; // 길이가 3인 int형 배열의 선언 및 생성
 		int[] grade2 = new int[3]; // 길이가 3인 int형 배열의 선언 및 생성
 		
@@ -91,6 +91,24 @@ public class helloworld {
 		System.out.println();
 		for (i = 0; i < grade2.length; i++) {
 		    System.out.print(grade2[i] + " "); // 인덱스를 이용한 배열로의 접근
+		}
+		
+		System.out.println("\n-- 2 Dimension Array ---");
+		int[][] arr = new int[2][3];
+		 
+		int k = 10;
+		for (i = 0; i < arr.length; i++) {
+		    for (int j = 0; j < arr[i].length; j++) {
+		        arr[i][j] = k; // 인덱스를 이용한 초기화
+		        k += 10;
+		    }
+		}
+
+		for (i = 0; i < arr.length; i++) {
+		    for (int j = 0; j < arr[i].length; j++) {
+		        System.out.print(arr[i][j] + " ");
+		    }
+		    System.out.println();
 		}
 	}
 }
