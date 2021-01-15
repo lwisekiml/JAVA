@@ -93,7 +93,7 @@ public class helloworld {
 		    System.out.print(grade2[i] + " "); // 인덱스를 이용한 배열로의 접근
 		}
 		
-		System.out.println("\n-- 2 Dimension Array ---");
+		System.out.println("\n--- 2 Dimension Array ---");
 		int[][] arr = new int[2][3];
 		 
 		int k = 10;
@@ -110,5 +110,21 @@ public class helloworld {
 		    }
 		    System.out.println();
 		}
+		
+		System.out.println("--- dynamic array ---");
+		
+		int[][] arr1 = {
+				{10, 20},
+			    {10, 20, 30, 40},
+			    {10}
+		};
+
+		for (i = 0; i < arr1.length; i++) {
+		    for (int j = 0; j < arr1[i].length; j++) {
+		        System.out.print(arr1[i][j] + " ");
+		    }
+		    System.out.println();
+		}
+
 	}
 }
