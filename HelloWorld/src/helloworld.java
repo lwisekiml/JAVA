@@ -1,3 +1,4 @@
+import java.util.Arrays;
 
 public class helloworld {
 
@@ -125,6 +126,46 @@ public class helloworld {
 		    }
 		    System.out.println();
 		}
+		
+		System.out.println("--- array copy ---");
 
+		int[] ar1 = new int[]{1, 2, 3, 4, 5};
+		int newLen = 10;
+
+		// 1. System 클래스의 arraycopy() 메소드
+		int[] ar2 = new int[newLen];
+		System.arraycopy(ar1, 0, ar2, 0, arr1.length);
+
+		for (i = 0; i < ar2.length; i++) {
+			System.out.print(ar2[i] + " ");
+		}
+		System.out.println();
+		
+		// 2. Arrays 클래스의 copyOf() 메소드
+		int[] ar3 = Arrays.copyOf(ar1, 10);
+
+		for (i = 0; i < ar3.length; i++) {
+			System.out.print(ar3[i] + " ");
+		}
+		System.out.println();
+		
+		// 3. Object 클래스의 clone() 메소드
+		int[] ar4 = (int[])ar1.clone();
+
+		for (i = 0; i < ar4.length; i++) {
+			System.out.print(ar4[i] + " ");
+		}
+		System.out.println();
+		
+		// 4. for 문과 인덱스를 이용한 복사
+		int[] ar5 = new int[newLen];
+		
+		for (i = 0; i < arr1.length; i++) {
+			ar5[i] = ar1[i];
+		}
+		
+		for (i = 0; i < ar5.length; i++) {
+			System.out.print(ar5[i] + " ");
+		}
 	}
 }
