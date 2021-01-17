@@ -167,5 +167,11 @@ public class helloworld {
 		for (i = 0; i < ar5.length; i++) {
 			System.out.print(ar5[i] + " ");
 		}
+		
+		System.out.println("\n--- Enhanced for ---");
+		for(int e : grade1) {
+			e += 10;
+			System.out.println(e);
+		}
 	}
 }
