@@ -1,5 +1,19 @@
 import java.util.Arrays;
 
+class Car {                    // 클래스 이름
+    private String modelName;  // 필드
+    private int modelYear;     // 필드
+
+    Car(String modelName, int modelYear) { // 생성자
+        this.modelName = modelName;
+        this.modelYear = modelYear;
+    }
+
+    public String getModel() { // 메소드
+        return this.modelYear + "년식 " + this.modelName;
+    }
+}
+
 public class helloworld {
 
 	public static void main(String[] args) {
@@ -173,5 +187,9 @@ public class helloworld {
 			e += 10;
 			System.out.println(e);
 		}
+		
+		System.out.println("--- Class ---");
+		Car myCar = new Car("차", 2021);
+		System.out.println(myCar.getModel());
 	}
 }
