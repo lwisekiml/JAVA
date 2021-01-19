@@ -4,6 +4,9 @@ class Car {                    // 클래스 이름
     private String modelName;  // 필드
     private int modelYear;     // 필드
 
+    Car(){
+    }
+    
     Car(String modelName, int modelYear) { // 생성자
         this.modelName = modelName;
         this.modelYear = modelYear;
@@ -11,6 +14,10 @@ class Car {                    // 클래스 이름
 
     public String getModel() { // 메소드
         return this.modelYear + "년식 " + this.modelName;
+    }
+    
+    public void accelerate(int speed, int second) {
+        System.out.println(second + "초간 속도를 시속 " + speed + "(으)로 가속함!!");
     }
 }
 
@@ -191,5 +198,9 @@ public class helloworld {
 		System.out.println("--- Class ---");
 		Car myCar = new Car("차", 2021);
 		System.out.println(myCar.getModel());
+		
+		System.out.println("--- method ---");
+		Car car = new Car();
+		car.accelerate(60, 3); // 메소드 호출		
 	}
 }
