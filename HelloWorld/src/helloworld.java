@@ -3,17 +3,29 @@ import java.util.Arrays;
 class Car {                    // 클래스 이름
     private String modelName;  // 필드
     private int modelYear;     // 필드
-
-    Car(){
-    }
+    private String color;
+    private int maxSpeed;
+    private int currentSpeed;
     
     Car(String modelName, int modelYear) { // 생성자
         this.modelName = modelName;
         this.modelYear = modelYear;
     }
 
-    public String getModel() { // 메소드
-        return this.modelYear + "년식 " + this.modelName;
+    Car(String modelName, int modelYear, String color, int maxSpeed) {
+        this.modelName = modelName;
+        this.modelYear = modelYear;
+        this.color = color;
+        this.maxSpeed = maxSpeed;
+        this.currentSpeed = 0;
+    }
+    
+    Car() {
+        this("소나타", 2012, "검정색", 160); // 다른 생성자를 호출함.
+    }
+
+    public String getModel() {
+        return this.modelYear + "년식 " + this.modelName + " " + this.color;
     }
     
     public void accelerate(int speed, int second) {
@@ -201,6 +213,10 @@ public class helloworld {
 		
 		System.out.println("--- method ---");
 		Car car = new Car();
-		car.accelerate(60, 3); // 메소드 호출		
+		car.accelerate(60, 3); // 메소드 호출
+		
+		System.out.println("\n--- this/this() ---");
+		Car tcpCar = new Car();
+		System.out.println(tcpCar.getModel());
 	}
 }
