@@ -31,10 +31,13 @@ class Car {                    // 클래스 이름
     public void accelerate(int speed, int second) {
         System.out.println(second + "초간 속도를 시속 " + speed + "(으)로 가속함!!");
     }
+    
+    static void display(int num1) { System.out.println(num1); }
+    static void display(int num1, int num2) { System.out.println(num1 * num2); }
+    static void display(int num1, double num2) { System.out.println(num1 + num2); }
 }
 
 public class helloworld {
-
 	public static void main(String[] args) {
 		int n = 5;
 		boolean exp = true;
@@ -218,5 +221,13 @@ public class helloworld {
 		System.out.println("\n--- this/this() ---");
 		Car tcpCar = new Car();
 		System.out.println(tcpCar.getModel());
+		
+		
+		System.out.println("\n--- method overloading ---");
+		Car overloading = new Car();
+		overloading.display(10);
+		overloading.display(10,20);
+		overloading.display(10,3.14);
+		overloading.display(10,'a');
 	}
 }
