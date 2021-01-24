@@ -7,6 +7,8 @@ class Car {                    // 클래스 이름
     private int maxSpeed;
     private int currentSpeed;
     
+    public String var = "누구든지 허용"; // public 필드
+    
     Car(String modelName, int modelYear) { // 생성자
         this.modelName = modelName;
         this.modelYear = modelYear;
@@ -36,11 +38,18 @@ class Car {                    // 클래스 이름
     static void display(int num1, int num2) { System.out.println(num1 * num2); }
     static void display(int num1, double num2) { System.out.println(num1 + num2); }
     
-    public void gcs(){
-    	System.out.println(getCurrentSpeed());
+    public int gcs(){
+    	return getCurrentSpeed();
     }
+    
+    // private
     private int getCurrentSpeed() {                  // private 메소드
         return this.currentSpeed;
+    }
+    
+    // public
+    public String getVar() {             // public 메소드
+        return this.var;
     }
 }
 
@@ -241,8 +250,12 @@ public class helloworld {
 		System.out.println(recursiveSum(5));
 		
 		System.out.println("--- access modifier ---");
-		System.out.println("--- private ");
-		myCar.gcs();
+		System.out.println("--- private (선언한 class에서만 접근 가능) ");
+		System.out.println(myCar.gcs());
+		// myCar.getCurrentSpeed(); // 접근 불가능
+		
+		System.out.println("--- public (모든 곳에서 접근 가능/일반 class, 자식 class, 다른 패키지 일반 class, 다른 패키지 자식 class) ");
+		System.out.println(myCar.getVar());
 	}
 	
 	static int recursiveSum(int n) {
