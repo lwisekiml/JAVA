@@ -18,6 +18,12 @@ class Car {
     }
 }
 
+// 필드 초기화
+class Field {
+	static int classVar = 10; // 클래스 변수의 명시적 초기화
+	int instanceVar = 20;     // 인스턴스 변수의 명시적 초기화
+}
+
 class Car {                    // 클래스 이름
     private String modelName;  // 필드
     private int modelYear;     // 필드
