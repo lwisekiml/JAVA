@@ -1,5 +1,6 @@
 import java.util.Arrays;
 
+/*
 // final
 final class Car {                    // 이 클래스는 상속을 통해 서브 클래스를 생성할 수 없음.
     final int VAR;                   // 이 필드는 상수화되어 값을 변경할 수 없음.
@@ -7,9 +8,10 @@ final class Car {                    // 이 클래스는 상속을 통해 서브 클래스를 생
         final double MAX_NUM = 10.2; // 이 지역 변수는 상수화되어 값을 변경할 수 없음.
     }
 }
+*/
 
 // static
-class Car {
+class Car_ {
     static int var;       // 클래스 필드(static 변수)
     static {              // static 초기화 블록
     // 보통 클래스 필드의 초기화를 진행함.
@@ -17,22 +19,30 @@ class Car {
     static void brake() { // 클래스 메소드(static 메소드)
     }
 }
-
+/*
 // 필드 초기화
 class Field {
 	static int classVar = 10; // 클래스 변수의 명시적 초기화
 	int instanceVar = 20;     // 인스턴스 변수의 명시적 초기화
 }
-
+*/
 class Car {                    // 클래스 이름
     private String modelName;  // 필드
     private int modelYear;     // 필드
     private String color;
     private int maxSpeed;
     private int currentSpeed;
+    private int instanceTest;
     
     public String var = "누구든지 허용"; // public 필드
     
+    {
+    	this.instanceTest = 77;
+    }
+    
+    public int getSpeed() {
+    	return instanceTest;
+    }
     Car(String modelName, int modelYear) { // 생성자
         this.modelName = modelName;
         this.modelYear = modelYear;
@@ -280,6 +290,10 @@ public class helloworld {
 		
 		System.out.println("--- public (모든 곳에서 접근 가능/일반 class, 자식 class, 다른 패키지 일반 class, 다른 패키지 자식 class) ");
 		System.out.println(myCar.getVar());
+		
+		System.out.println("--- instance ---");
+		Car carInstance = new Car(); // instance create
+		System.out.println(carInstance.getSpeed()); // instance method load
 	}
 	
 	static int recursiveSum(int n) {
