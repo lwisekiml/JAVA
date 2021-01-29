@@ -10,6 +10,22 @@ final class Car {                    // 이 클래스는 상속을 통해 서브 클래스를 생
 }
 */
 
+//  클래스 초기화 블록
+class InitBlock {
+    static int classVar; // 클래스 변수
+    int instanceVar;     // 인스턴스 변수
+
+    static { // 클래스 초기화 블록을 이용한 초기화
+        classVar = 10;
+    }
+}
+
+public class Member04 {
+    public static void main(String[] args) {
+        System.out.println(InitBlock.classVar); // 클래스 변수에 접근
+    }
+}
+
 // static
 class Car_ {
     static int var;       // 클래스 필드(static 변수)
@@ -36,7 +52,7 @@ class Car {                    // 클래스 이름
     
     public String var = "누구든지 허용"; // public 필드
     
-    {
+    { //인스턴스 초기화 블록
     	this.instanceTest = 77;
     }
     
