@@ -13,24 +13,48 @@
  * 3. 부모 클래스의 메소드보다 더 큰 범위의 예외 선언X
  */
 
-class ParentOR {
+class ParentOr {
     void display() { System.out.println("부모 클래스의 display() 메소드입니다."); }
 }
 
-class ChildOR extends ParentOR {
+class ChildOr extends ParentOr {
     void display() { System.out.println("자식 클래스의 display() 메소드입니다."); }
+}
+
+/*
+ * 오버로딩과 오버라이딩
+ * 오버로딩(overloading) : 새로운 메소드를 정의
+ * 오버라이딩(overriding) : 상속받은 기존의 메소드를 재정의
+ */
+
+class ParentOrOl {
+    void display() { System.out.println("부모 클래스의 display() 메소드입니다."); }
+}
+
+class ChildOrOl extends ParentOrOl {
+    // 오버라이딩된 display() 메소드
+    void display() { System.out.println("자식 클래스의 display() 메소드입니다."); }
+    
+    // 오버로딩된 display() 메소드
+    void display(String str) { System.out.println(str); } 
 }
 
 public class Overloading_Overriding {
     public static void main(String[] args) {
-        ParentOR pa = new ParentOR();
+        ParentOr pa = new ParentOr();
         pa.display();
         
-        ChildOR ch = new ChildOR();
+        ChildOr ch = new ChildOr();
         ch.display();
         
-        ParentOR pc = new ChildOR(); // 다형성(polymorphism) 때문에 가능
+        ParentOr pc = new ChildOr(); // 다형성(polymorphism) 때문에 가능
         pc.display();
-        // Child cp = new Parent();        
+        // Child cp = new Parent();
+        
+        System.out.println("-----");
+        
+        ChildOrOl chorol = new ChildOrOl();
+        chorol.display();
+        chorol.display("오버로딩된 display() 메소드입니다.");
     }
 }
