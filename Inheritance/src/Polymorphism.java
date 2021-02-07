@@ -24,3 +24,28 @@ Parent pc = new Child();  // 허용
 Child cp = new Parent();  // 오류 발생.
 
 //클래스는 상속을 통해 확장될 수는 있어도 축소될 수는 없으므로, 자식 클래스에서 사용할 수 있는 멤버의 개수가 언제나 부모 클래스와 같거나 많게 됨
+
+
+/*
+참조 변수의 타입 변환
+참조 변수도 다음과 같은 조건에 따라 타입 변환 가능
+
+1. 서로 상속 관계에 있는 클래스 사이에만 타입 변환 가능
+2. 자식 클래스 타입에서 부모 클래스 타입으로의 타입 변환은 생략 가능
+3. 하지만 부모 클래스 타입에서 자식 클래스 타입으로의 타입 변환은 반드시 명시
+*/
+
+class Parent { ... }
+class Child extends Parent { ... }
+class Brother extends Parent { ... }
+
+Parent pa01 = null;
+Child ch = new Child();
+Parent pa02 = new Parent();
+Brother br = null;
+
+pa01 = ch;          // pa01 = (Parent)ch; 와 같으며, 타입 변환을 생략할 수 있음.
+br = (Brother)pa02; // 타입 변환을 생략할 수 없음.
+br = (Brother)ch;   // 직접적인 상속 관계가 아니므로, 오류 발생.
+
+
