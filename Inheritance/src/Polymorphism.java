@@ -49,3 +49,32 @@ br = (Brother)pa02; // 타입 변환을 생략할 수 없음.
 br = (Brother)ch;   // 직접적인 상속 관계가 아니므로, 오류 발생.
 
 
+/* 02/08
+instanceof 연산자
+instanceof 연산자를 사용하여, 참조 변수가 참조하고 있는 인스턴스의 실제 타입을 확인할 수 있도록 함
+
+(문법)
+참조변수 instanceof 클래스이름(클래스타입)
+
+참조변수가 실제로 참조하고 있는 인스턴스의 타입이 클래스이름(클래스타입)이면 true, 아니면 false
+참조 변수가 null을 가리키고 있으면 false 반환
+*/
+
+class Parent { }
+class Child extends Parent { }
+class Brother extends Parent { }
+
+public class Polymorphism {
+    public static void main(String[] args) {
+        Parent p = new Parent();
+        System.out.println(p instanceof Object); // true
+        System.out.println(p instanceof Parent); // true
+        System.out.println(p instanceof Child);  // false
+        System.out.println();
+ 
+        Parent c = new Child();
+        System.out.println(c instanceof Object); // true
+        System.out.println(c instanceof Parent); // true
+        System.out.println(c instanceof Child);  // true
+    }
+}
