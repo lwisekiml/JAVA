@@ -47,12 +47,46 @@ class Dog1 implements Animal1 {
     }
 }
 
-public class Interface {
-    public static void main(String[] args) {
-        Cat1 c = new Cat1();
-        Dog1 d = new Dog1();
- 
-        c.cry();
-        d.cry();
+// 2/11 다중상속
+// 인터페이스는 인터페이스로부터만 상속을 받을 수 있으며, 여러 인터페이스를 상속받을 수 있음
+interface Animal2 { public abstract void cry(); }
+interface Pet2 { public abstract void play(); }
+
+class Cat2 implements Animal2, Pet2 {
+    public void cry() {
+        System.out.println("냐옹냐옹!");
+    }
+    public void play() {
+        System.out.println("쥐 잡기 놀이하자~!");
     }
 }
+
+class Dog2 implements Animal2, Pet2 {
+    public void cry() {
+        System.out.println("멍멍!");
+    }
+    public void play() {
+        System.out.println("산책가자~!");
+    }
+}
+
+public class Interface {
+    public static void main(String[] args) {
+    	Cat1 c1 = new Cat1();
+        Dog1 d1 = new Dog1();
+ 
+        c1.cry();
+        d1.cry();
+        
+        System.out.println("--------");
+    	
+        Cat2 c2 = new Cat2();
+        Dog2 d2 = new Dog2();
+
+        c2.cry();
+        c2.play();
+        d2.cry();
+        d2.play();
+    }
+}
+
