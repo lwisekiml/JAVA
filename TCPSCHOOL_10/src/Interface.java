@@ -70,6 +70,50 @@ class Dog2 implements Animal2, Pet2 {
     }
 }
 
+// 2/12 클래스를 이용한 다중 상속의 문제점
+// 메소드 출처의 모호성 등의 문제 발생 가능 
+
+class Animal3 { 
+    public void cry() {
+        System.out.println("짖기!");
+    }
+}
+
+class Cat3 extends Animal3 {
+    public void cry() {
+        System.out.println("냐옹냐옹!");
+    }
+}
+
+class Dog3 extends Animal3 {
+    public void cry() {
+        System.out.println("멍멍!");
+    }
+}
+
+class MyPet3 extends Cat3, Dog3 {} // ①
+ 
+/*
+Cat 클래스와 Dog 클래스는 각각 Animal 클래스를 상속받아 cry() 메소드를 오버라이딩 함
+MyPet 클래스가 Cat 클래스와 Dog 클래스를 동시에 상속받게 되면 문제 발생
+
+②번에서 MyPet 인스턴스인 p가 cry() 메소드를 호출하면
+Cat 클래스에서 상속받은 cry() 메소드인지 Dog 클래스에서 상속받은 cry() 메소드인지를 구분할 수 없는 모호성을 지님
+이와 같은 이유로 자바에서는 클래스를 이용한 다중 상속을 지원X
+
+하지만 다음 예제처럼 인터페이스를 이용하여 다중 상속을 하게되면, 위와 같은 메소드 호출의 모호성을 방지할 수 있음
+*/
+
+interface Animal4 { public abstract void cry(); }
+interface Cat4 extends Animal4 { public abstract void cry(); }
+interface Dog4 extends Animal4 { public abstract void cry(); }
+
+class MyPet4 implements Cat4, Dog4 {
+    public void cry() {
+        System.out.println("멍멍! 냐옹냐옹!");
+    }
+}
+
 public class Interface {
     public static void main(String[] args) {
     	Cat1 c1 = new Cat1();
@@ -87,6 +131,25 @@ public class Interface {
         c2.play();
         d2.cry();
         d2.play();
+        
+        System.out.println("--------");
+        
+        MyPet3 p3 = new MyPet3();
+        p3.cry(); // ②
+        
+        System.out.println("--------");
+        
+        MyPet4 p4 = new MyPet4();
+        p4.cry();
     }
 }
 
+/*
+Cat 인터페이스와 Dog 인터페이스를 동시에 구현한 MyPet 클래스에서만 cry() 메소드를 정의하므로, 앞선 예제에서 발생한 메소드 호출의 모호성 없음
+
+인터페이스의 장점
+다중 상속이 가능할 뿐만 아니라
+1. 대규모 프로젝트 개발 시 일관되고 정형화된 개발을 위한 표준화 가능
+2. 클래스의 작성과 인터페이스의 구현을 동시에 진행할 수 있으므로, 개발 시간 단축 가능
+3. 클래스와 클래스 간의 관계를 인터페이스로 연결하면, 클래스마다 독립적인 프로그래밍이 가능
+*/
