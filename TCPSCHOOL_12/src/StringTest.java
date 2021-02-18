@@ -19,7 +19,16 @@ String 인스턴스는 한 번 생성되면 그 값을 읽기만 할 수 있고, 변경X(이러한 객체를 
 해당 문자열이 인수로 전달된 문자열보다 작으면 음수, 크면 양수 반환
 
 비교할 때 대소문자를 구분X : compareToIgnoreCase()
+
+3. concat() 메소드
+해당 문자열의 뒤에 인수로 전달된 문자열을 추가한 새로운 문자열을 반환
+(인수로 전달된 문자열의 길이가 0이면, 해당 문자열을 그대로 반환)
+
+4. indexOf() 메소드
+해당 문자열에서 특정 문자나 문자열이 처음으로 등장하는 위치의 인덱스 반환
+(해당 문자열에 전달된 문자나 문자열이 포함되어 있지 않으면 -1을 반환)
 */
+
 public class StringTest {
 	public static void main(String[] args) {
 		System.out.println("====================");
@@ -47,6 +56,25 @@ public class StringTest {
 		System.out.println(compareTest.compareTo("Abcd"));
 		System.out.println(compareTest.compareToIgnoreCase("Abcd"));
 		System.out.println("compareTo() 메소드 호출 후 원본 문자열 : " + compareTest);
+
 		System.out.println("====================");
+		System.out.println("concat() 메소드");
+		System.out.println("--------------------");
+
+		String concatTest = new String("Java");
+		System.out.println("원본 문자열 : " + concatTest);
+		System.out.println(concatTest.concat("수업"));
+		System.out.println("concat() 메소드 호출 후 원본 문자열 : " + concatTest);
+		
+		System.out.println("====================");
+		System.out.println("indexOf() 메소드");
+		System.out.println("--------------------");
+		
+		String indexOfTest = new String("Oracle Java");
+		System.out.println("원본 문자열 : " + indexOfTest);
+		System.out.println(indexOfTest.indexOf('o'));
+		System.out.println(indexOfTest.indexOf('a'));
+		System.out.println(indexOfTest.indexOf("Java"));
+		System.out.println("indexOf() 메소드 호출 후 원본 문자열 : " + indexOfTest);
 	}
 }
