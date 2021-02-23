@@ -15,8 +15,14 @@ Math 클래스의 random() 메소드뿐만 아니라 java.util 패키지에 포함된 Random 클래스
 2. abs() 메소드
 전달된 값이 음수이면 그 값의 절댓값을 반환, 전달된 값이 양수이면 전달된 값을 그대로 반환
 
+3. floor(), ceil(), round()
+floor() : 인수로 전달받은 값과 같거나 작은 수 중에서 가장 큰 정수를 반환
+ceil()  : 인수로 전달받은 값과 같거나 큰 수 중에서 가장 작은 정수를 반환
+round() : 전달받은 실수를 소수점 첫째 자리에서 반올림한 정수를 반환
 */
+
 import java.lang.Math;
+
 import java.util.Random;
 
 public class MathTest {
@@ -45,5 +51,20 @@ public class MathTest {
 		System.out.println(Math.abs(10));    // 10
 		System.out.println(Math.abs(-10));   // 10
 		System.out.println(Math.abs(-3.14)); // 3.14
+
+		System.out.println("====================");
+		System.out.println("ceil(), floor(), round() 메소드");
+		System.out.println("--------------------");
+
+		System.out.println(Math.ceil(10.0));      // 10.0
+		System.out.println(Math.ceil(10.1));      // 11.0
+		System.out.println(Math.ceil(10.000001)); // 11.0
+
+		System.out.println(Math.floor(10.0));     // 10.0
+		System.out.println(Math.floor(10.9));     // 10.0
+
+		System.out.println(Math.round(10.0));     // 10
+		System.out.println(Math.round(10.4));     // 10
+		System.out.println(Math.round(10.5));     // 11
 	}
 }
