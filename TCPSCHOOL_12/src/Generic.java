@@ -47,7 +47,7 @@ class Cat extends LandAnimal { public void crying() { System.out.println("³Ä¿Ë³Ä
 class Dog extends LandAnimal { public void crying() { System.out.println("¸Û¸Û"); } }
 class Sparrow { public void crying() { System.out.println("Â±Â±"); } }
 
-class AnimalList<T> {
+class AnimalList1<T> {
     ArrayList<T> al = new ArrayList<T>();
 
     void add(T animal) { al.add(animal); }
@@ -56,20 +56,46 @@ class AnimalList<T> {
     int size() { return al.size(); }
 }
 
+// # ´Ù¾çÇÑ Á¦³×¸¯ Ç¥Çö
+class AnimalList2<T extends LandAnimal> {
+    ArrayList<T> al = new ArrayList<T>();
+
+    void add(T animal) { al.add(animal); }
+    T get(int index) { return al.get(index); }
+    boolean remove(T animal) { return al.remove(animal); }
+    int size() { return al.size(); }
+
+}
+
+// # ¿ÍÀÏµåÄ«µåÀÇ »ç¿ë
+class AnimalList3<T> {
+    ArrayList<T> al = new ArrayList<T>();
+
+    public static void cryingAnimalList(AnimalList3<? extends LandAnimal> al) {
+        LandAnimal la = al.get(0);
+        la.crying();
+    }
+
+    void add(T animal) { al.add(animal); }
+    T get(int index) { return al.get(index); }
+    boolean remove(T animal) { return al.remove(animal); }
+    int size() { return al.size(); }
+}
+
+
 public class Generic {
     public static void main(String[] args) {
-        AnimalList<LandAnimal> landAnimal = new AnimalList<>(); // Java SE 7ºÎÅÍ »ı·«°¡´ÉÇÔ.
+    	System.out.println("--- Generic 1 ---");
+        AnimalList1<LandAnimal> landAnimal1 = new AnimalList1<>(); // Java SE 7ºÎÅÍ »ı·«°¡´ÉÇÔ.
 
-        landAnimal.add(new LandAnimal());
-        landAnimal.add(new Cat());
-        landAnimal.add(new Dog());
+        landAnimal1.add(new LandAnimal());
+        landAnimal1.add(new Cat());
+        landAnimal1.add(new Dog());
         // landAnimal.add(new Sparrow()); // ¿À·ù°¡ ¹ß»ıÇÔ.
 
-        for (int i = 0; i < landAnimal.size() ; i++) {
-            landAnimal.get(i).crying();
+        for (int i = 0; i < landAnimal1.size() ; i++) {
+            landAnimal1.get(i).crying();
         }
-    }
-}
 
 /*
 À§ÀÇ ¿¹Á¦¿¡¼­ Cat°ú Dog Å¬·¡½º´Â LandAnimal Å¬·¡½º¸¦ »ó¼Ó¹Ş´Â ÀÚ½Ä Å¬·¡½ºÀÌ¹Ç·Î,
@@ -80,3 +106,80 @@ AnimalList<LandAnimal>¿¡ Ãß°¡ÇÒ ¼ö ÀÖÀ¸³ª Sparrow Å¬·¡½º´Â Å¸ÀÔÀÌ ´Ù¸£¹Ç·Î Ãß°¡Ç
 ÄÚµå ³»ÀÇ ¸ğµç Á¦³×¸¯ Å¸ÀÔÀº Á¦°ÅµÇ¾î, ÄÄÆÄÀÏµÈ class ÆÄÀÏ¿¡´Â ¾î¶°ÇÑ Á¦³×¸¯ Å¸ÀÔµµ Æ÷ÇÔµÇÁö ¾Ê°Ô µÊ
 ÀÌ·± ½ÄÀ¸·Î µ¿ÀÛÇÏ´Â ÀÌÀ¯´Â Á¦³×¸¯À» »ç¿ëÇÏÁö ¾Ê´Â ÄÚµå¿ÍÀÇ È£È¯¼ºÀ» À¯ÁöÇÏ±â À§ÇÔ
 */
+
+        
+
+/*
+# ´Ù¾çÇÑ Á¦³×¸¯ Ç¥Çö
+# Å¸ÀÔ º¯¼öÀÇ Á¦ÇÑ
+'T'¿Í °°Àº Å¸ÀÔ º¯¼ö(type variable)¸¦ »ç¿ëÇÏ¿© Å¸ÀÔÀ» Á¦ÇÑ
+extends Å°¿öµå¸¦ »ç¿ëÇÏ¸é Å¸ÀÔ º¯¼ö¿¡ Æ¯Á¤ Å¸ÀÔ¸¸À» »ç¿ëÇÏµµ·Ï Á¦ÇÑÇÒ ¼ö ÀÖÀ½
+
+ex) class AnimalList<T extends LandAnimal> { ... }
+
+Å¬·¡½ºÀÇ Å¸ÀÔ º¯¼ö¿¡ Á¦ÇÑÀ» °É¾î ³õÀ¸¸é Å¬·¡½º ³»ºÎ¿¡¼­ »ç¿ëµÈ ¸ğµç Å¸ÀÔ º¯¼ö¿¡ Á¦ÇÑÀÌ °É¸²
+ÀÌ ¶§ Å¬·¡½º°¡ ¾Æ´Ñ ÀÎÅÍÆäÀÌ½º¸¦ ±¸ÇöÇÒ °æ¿ì¿¡µµ implements Å°¿öµå°¡ ¾Æ´Ñ extends Å°¿öµå¸¦ »ç¿ëÇØ¾ß ÇÔ
+
+ex)
+interface WarmBlood { ... }
+...
+class AnimalList<T extends WarmBlood> { ... } // implements Å°¿öµå¸¦ »ç¿ëÇØ¼­´Â ¾ÈµÊ.
+
+Å¬·¡½º¿Í ÀÎÅÍÆäÀÌ½º¸¦ µ¿½Ã¿¡ »ó¼Ó¹Ş°í ±¸ÇöÇØ¾ß ÇÑ´Ù¸é '&' ±âÈ£¸¦ »ç¿ë
+
+ex) class AnimalList<T extends LandAnimal & WarmBlood> { ... }
+*/
+    	System.out.println("--- Generic 2 ---");
+
+        AnimalList2<LandAnimal> landAnimal2 = new AnimalList2<>(); // Java SE 7ºÎÅÍ »ı·«°¡´ÉÇÔ.
+
+        landAnimal2.add(new LandAnimal());
+        landAnimal2.add(new Cat());
+        landAnimal2.add(new Dog());
+        // landAnimal.add(new Sparrow()); // ¿À·ù°¡ ¹ß»ıÇÔ.
+
+        for (int i = 0; i < landAnimal2.size() ; i++) {
+            landAnimal2.get(i).crying();
+        }
+/*
+À§ÀÇ ¿¹Á¦´Â Å¸ÀÔ º¯¼öÀÇ ´ÙÇü¼ºÀ» ÀÌ¿ëÇÏ¿© AnimalList Å¬·¡½ºÀÇ ¼±¾ğºÎ¿¡ ¸í½ÃÇÑ 'extends LandAnimal' ±¸¹®À» »ı·«ÇØµµ Á¦´ë·Î µ¿ÀÛ ÇÔ
+ÄÚµåÀÇ ¸íÈ®¼ºÀ» À§ÇØ¼­´Â À§¿Í °°ÀÌ Å¸ÀÔÀÇ Á¦ÇÑÀ» ¸í½ÃÇÏ´Â ÆíÀÌ ´õ ÁÁÀ½
+
+# Á¦³×¸¯ ¸Ş¼Òµå(generic method)
+¸Ş¼ÒµåÀÇ ¼±¾ğºÎ¿¡ Å¸ÀÔ º¯¼ö¸¦ »ç¿ëÇÑ ¸Ş¼Òµå¸¦ ÀÇ¹Ì
+Å¸ÀÔ º¯¼öÀÇ ¼±¾ğÀº ¸Ş¼Òµå ¼±¾ğºÎ¿¡¼­ ¹İÈ¯ Å¸ÀÔ ¹Ù·Î ¾Õ¿¡ À§Ä¡ ÇÔ
+
+ex) public static <T> void sort( ... ) { ... }
+
+Á¦³×¸¯ Å¬·¡½º¿¡¼­ Á¤ÀÇµÈ Å¸ÀÔ º¯¼ö T¿Í Á¦³×¸¯ ¸Ş¼Òµå¿¡¼­ »ç¿ëµÈ Å¸ÀÔ º¯¼ö T´Â ÀüÇô º°°³ÀÇ °ÍÀÓÀ» ÁÖÀÇÇØ¾ß ÇÔ
+ex)
+class AnimalList<T> {
+    ...
+    public static <T> void sort(List<T> list, Comparator<? super T> comp) {
+        ...
+    }
+    ...
+}
+
+# ¿ÍÀÏµåÄ«µåÀÇ »ç¿ë
+ÀÌ¸§¿¡ Á¦ÇÑÀ» µÎÁö ¾ÊÀ½À» Ç¥ÇöÇÏ´Â µ¥ »ç¿ëµÇ´Â ±âÈ£¸¦ ÀÇ¹Ì
+ÀÚ¹ÙÀÇ Á¦³×¸¯¿¡¼­´Â ¹°À½Ç¥(?) ±âÈ£¸¦ »ç¿ëÇÏ¿© ÀÌ·¯ÇÑ ¿ÍÀÏµåÄ«µå¸¦ »ç¿ëÇÒ ¼ö ÀÖÀ½
+
+¹®¹ı
+<?>           // Å¸ÀÔ º¯¼ö¿¡ ¸ğµç Å¸ÀÔÀ» »ç¿ëÇÒ ¼ö ÀÖÀ½.
+<? extends T> // T Å¸ÀÔ°ú T Å¸ÀÔÀ» »ó¼Ó¹Ş´Â ÀÚ¼Õ Å¬·¡½º Å¸ÀÔ¸¸À» »ç¿ëÇÒ ¼ö ÀÖÀ½.
+<? super T>   // T Å¸ÀÔ°ú T Å¸ÀÔÀÌ »ó¼Ó¹ŞÀº Á¶»ó Å¬·¡½º Å¸ÀÔ¸¸À» »ç¿ëÇÒ ¼ö ÀÖÀ½.
+
+´ÙÀ½ ¿¹Á¦´Â Å¬·¡½º ¸Ş¼Òµå(static method)ÀÎ cryingAnimalList() ¸Ş¼ÒµåÀÇ ¸Å°³º¯¼öÀÇ Å¸ÀÔÀ» ¿ÍÀÏµåÄ«µå¸¦ »ç¿ëÇÏ¿© Á¦ÇÑÇÏ´Â ¿¹Á¦ÀÔ´Ï´Ù.
+*/
+		System.out.println("--- Generic 3 ---");
+
+        AnimalList3<Cat> catList3 = new AnimalList3<Cat>();
+        catList3.add(new Cat());
+        AnimalList3<Dog> dogList3 = new AnimalList3<Dog>();
+        dogList3.add(new Dog());
+
+        AnimalList3.cryingAnimalList(catList3);
+        AnimalList3.cryingAnimalList(dogList3);
+    }
+}
