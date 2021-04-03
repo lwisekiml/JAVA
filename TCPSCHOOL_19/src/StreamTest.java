@@ -1,5 +1,6 @@
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
 /*
@@ -41,7 +42,7 @@ import java.util.stream.Stream;
 모든 컬렉션의 최고 상위 조상인 Collection 인터페이스에는 stream() 메소드가 정의되어 있어
 Collection 인터페이스를 구현한 모든 List와 Set 컬렉션 클래스에서도 stream() 메소드로 스트림 생성 가능
 parallelStream() 메소드를 사용하면 병렬 처리가 가능한 스트림 생성 가능
-*/
+ */
 public class StreamTest {
 	public static void main(String[] args) {
 		System.out.println("--- 컬렉션 ---");
@@ -72,14 +73,37 @@ Arrays 클래스의 stream() 메소드는 전체 배열뿐만 아니라 배열�
 */
 		System.out.println("--- 배열 ---");
 		String[] arr = new String[]{"넷", "둘", "셋", "하나"};
-		
+
 		// 배열에서 스트림 생성
 		Stream<String> stream1 = Arrays.stream(arr);
 		stream1.forEach(e -> System.out.print(e + " "));
 		System.out.println();
-		
+
 		// 배열의 특정 부분만을 이용한 스트림 생성
 		Stream<String> stream2 = Arrays.stream(arr, 1, 3);
 		stream2.forEach(e -> System.out.print(e + " "));
+/*
+# 가변 매개변수
+Stream 클래스의 of() 메소드를 사용하면 가변 매개변수(variable parameter)를 전달받아 스트림을 생성 가능
+*/
+		// 가변 매개변수에서 스트림 생성
+		System.out.println("\n--- 가변 매개변수 ---");
+		Stream<Double> stream_ = Stream.of(4.2, 2.5, 3.1, 1.9);
+		stream_.forEach(System.out::println);
+/*
+# 지정된 범위의 연속된 정수
+지정된 범위의 연속된 정수를 스트림으로 생성하기 위해 IntStream나 LongStream 인터페이스에는 range()와 rangeClosed() 메소드가 정의되어 있음
+range() 메소드는 명시된 시작 정수를 포함하지만, 명시된 마지막 정수는 포함하지 않는 스트림을 생성
+rangeClosed() 메소드는 명시된 시작 정수뿐만 아니라 명시된 마지막 정수까지도 포함하는 스트림을 생성
+*/
+		// 지정된 범위의 연속된 정수에서 스트림 생성
+		System.out.println("--- 지정된 범위의 연속된 정수 ---");
+		IntStream stream1_ = IntStream.range(1, 4);
+		stream1_.forEach(e -> System.out.print(e + " "));
+		System.out.println();
+
+		IntStream stream2_ = IntStream.rangeClosed(1, 4);
+		stream2_.forEach(e -> System.out.print(e + " "));
+
 	}
 }
