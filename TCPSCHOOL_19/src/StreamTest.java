@@ -1,5 +1,6 @@
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Random;
 import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
@@ -104,6 +105,41 @@ rangeClosed() 메소드는 명시된 시작 정수뿐만 아니라 명시된 마
 
 		IntStream stream2_ = IntStream.rangeClosed(1, 4);
 		stream2_.forEach(e -> System.out.print(e + " "));
+		
+/*
+# 특정 타입의 난수들
+특정 타입의 난수로 이루어진 스트림을 생성하기 위해 Random 클래스에는 ints(), longs(), doubles()와 같은 메소드가 정의되어 있으며
+매개변수로 스트림의 크기를 long 타입으로 전달받을 수 있음
+만약 매개변수를 전달받지 않으면 크기가 정해지지 않은 무한 스트림(infinite stream) 반환하며 limit() 메소드를 사용하여 따로 스트림의 크기를 제한해야 함
 
+// 특정 타입의 난수로 이루어진 스트림 생성
+*/
+		System.out.println("--- 특정 타입의 난수들 ---");
+		IntStream instream = new Random().ints(4);
+		instream.forEach(System.out::println);
+/*
+#람다 표현식
+람다 표현식을 매개변수로 전달받아 해당 람다 표현식에 의해 반환되는 값을 요소로 하는 무한 스트림을 생성하기 위해 Stream 클래스에는 iterate()와 generate() 메소드가 정의되어 있음
+iterate() 메소드는 시드(seed)로 명시된 값을 람다 표현식에 사용하여 반환된 값을 다시 시드로 사용하는 방식으로 무한 스트림을 생성
+generate() 메소드는 매개변수가 없는 람다 표현식을 사용하여 반환된 값으로 무한 스트림을 생성
+
+iterate() 메소드를 이용하여 홀수만으로 이루어진 무한 스트림을 생성하는 예제
+IntStream stream = Stream.iterate(2, n -> n + 2); // 2, 4, 6, 8, 10, ...
+
+
+#파일
+파일의 한 행(line)을 요소로 하는 스트림을 생성하기 위해 java.nio.file.Files 클래스에는 lines() 메소드가 정의되어 있음\
+java.io.BufferedReader 클래스의 lines() 메소드를 사용하면 파일뿐만 아니라 다른 입력으로부터도 데이터를 행(line) 단위로 읽어 올 수 있음
+ex) String<String> stream = Files.lines(Path path);
+
+# 빈 스트림
+아무 요소도 가지지 않는 빈 스트림은 Stream 클래스의 empty() 메소드를 사용하여 생성할 수 있음
+
+예제
+// 빈 스트림 생성
+*/
+		System.out.println("--- 빈스트림 ---");
+		Stream<Object> streamob = Stream.empty();
+		System.out.println(streamob.count()); // 스트림의 요소의 총 개수를 출력함.
 	}
 }
