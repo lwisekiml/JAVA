@@ -141,5 +141,33 @@ ex) String<String> stream = Files.lines(Path path);
 		System.out.println("--- 빈스트림 ---");
 		Stream<Object> streamob = Stream.empty();
 		System.out.println(streamob.count()); // 스트림의 요소의 총 개수를 출력함.
+/*
+# 스트림의 중개 연산(intermediate operation)
+스트림 API에 의해 생성된 초기 스트림은 중개 연산을 통해 또 다른 스트림으로 변환됨
+중개 연산은 스트림을 전달받아 스트림을 반환하므로, 중개 연산은 연속으로 연결해서 사용할 수 있음
+스트림의 중개 연산은 필터-맵(filter-map) 기반의 API를 사용함으로 지연(lazy) 연산을 통해 성능을 최적화할 수 있음
+
+스트림 API에서 사용할 수 있는 대표적인 중개 연산과 그에 따른 메소드
+1. 스트림 필터링 : filter(), distinct()
+2. 스트림 변환 : map(), flatMap()
+3. 스트림 제한 : limit(), skip()
+4. 스트림 정렬 : sorted()
+5. 스트림 연산 결과 확인 : peek()
+
+# 스트림 필터링
+filter() 메소드는 해당 스트림에서 주어진 조건(predicate)에 맞는 요소만으로 구성된 새로운 스트림 반환
+distinct() 메소드는 해당 스트림에서 중복된 요소가 제거된 새로운 스트림 반환하며 
+내부적으로 Object 클래스의 equals() 메소드를 사용하여 요소의 중복 비교
+*/
+		System.out.println("--- 스트림 필터링 ---");
+		IntStream stream1_i = IntStream.of(7, 5, 5, 2, 1, 2, 3, 5, 4, 6);
+		IntStream stream2_i = IntStream.of(7, 5, 5, 2, 1, 2, 3, 5, 4, 6);
+
+		// 스트림에서 중복된 요소를 제거함.
+		stream1_i.distinct().forEach(e -> System.out.print(e + " "));
+		System.out.println();
+
+		// 스트림에서 홀수만을 골라냄.
+		stream2_i.filter(n -> n % 2 != 0).forEach(e -> System.out.print(e + " "));
 	}
 }
