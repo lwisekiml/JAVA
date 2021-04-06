@@ -1,5 +1,6 @@
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Comparator;
 import java.util.Random;
 import java.util.stream.IntStream;
 import java.util.stream.Stream;
@@ -72,7 +73,7 @@ Stream 클래스의 forEach() 메소드는 해당 스트림의 요소를 하나�
 
 Arrays 클래스의 stream() 메소드는 전체 배열뿐만 아니라 배열의 특정 부분만을 이용하여 스트림을 생성할 수도 있습니다.
 */
-		System.out.println("--- 배열 ---");
+		System.out.println("\n--- 배열 ---");
 		String[] arr = new String[]{"넷", "둘", "셋", "하나"};
 
 		// 배열에서 스트림 생성
@@ -88,7 +89,7 @@ Arrays 클래스의 stream() 메소드는 전체 배열뿐만 아니라 배열�
 Stream 클래스의 of() 메소드를 사용하면 가변 매개변수(variable parameter)를 전달받아 스트림을 생성 가능
 */
 		// 가변 매개변수에서 스트림 생성
-		System.out.println("\n--- 가변 매개변수 ---");
+		System.out.println("\n\n--- 가변 매개변수 ---");
 		Stream<Double> stream_ = Stream.of(4.2, 2.5, 3.1, 1.9);
 		stream_.forEach(System.out::println);
 /*
@@ -98,7 +99,7 @@ range() 메소드는 명시된 시작 정수를 포함하지만, 명시된 마�
 rangeClosed() 메소드는 명시된 시작 정수뿐만 아니라 명시된 마지막 정수까지도 포함하는 스트림을 생성
 */
 		// 지정된 범위의 연속된 정수에서 스트림 생성
-		System.out.println("--- 지정된 범위의 연속된 정수 ---");
+		System.out.println("\n--- 지정된 범위의 연속된 정수 ---");
 		IntStream stream1_ = IntStream.range(1, 4);
 		stream1_.forEach(e -> System.out.print(e + " "));
 		System.out.println();
@@ -114,7 +115,7 @@ rangeClosed() 메소드는 명시된 시작 정수뿐만 아니라 명시된 마
 
 // 특정 타입의 난수로 이루어진 스트림 생성
 */
-		System.out.println("--- 특정 타입의 난수들 ---");
+		System.out.println("\n\n--- 특정 타입의 난수들 ---");
 		IntStream instream = new Random().ints(4);
 		instream.forEach(System.out::println);
 /*
@@ -138,7 +139,7 @@ ex) String<String> stream = Files.lines(Path path);
 예제
 // 빈 스트림 생성
 */
-		System.out.println("--- 빈스트림 ---");
+		System.out.println("\n--- 빈스트림 ---");
 		Stream<Object> streamob = Stream.empty();
 		System.out.println(streamob.count()); // 스트림의 요소의 총 개수를 출력함.
 /*
@@ -159,7 +160,7 @@ filter() 메소드는 해당 스트림에서 주어진 조건(predicate)에 맞�
 distinct() 메소드는 해당 스트림에서 중복된 요소가 제거된 새로운 스트림 반환하며 
 내부적으로 Object 클래스의 equals() 메소드를 사용하여 요소의 중복 비교
 */
-		System.out.println("--- 스트림 필터링 ---");
+		System.out.println("\n--- 스트림 필터링 ---");
 		IntStream stream1_i = IntStream.of(7, 5, 5, 2, 1, 2, 3, 5, 4, 6);
 		IntStream stream2_i = IntStream.of(7, 5, 5, 2, 1, 2, 3, 5, 4, 6);
 
@@ -169,5 +170,90 @@ distinct() 메소드는 해당 스트림에서 중복된 요소가 제거된 새
 
 		// 스트림에서 홀수만을 골라냄.
 		stream2_i.filter(n -> n % 2 != 0).forEach(e -> System.out.print(e + " "));
+/*
+# 스트림 변환
+map() 메소드는 해당 스트림의 요소들을 주어진 함수에 인수로 전달하여, 그 반환값들로 이루어진 새로운 스트림 반환
+해당 스트림의 요소가 배열이라면, flatMap() 메소드를 사용하여 각 배열의 각 요소의 반환값을 하나로 합친 새로운 스트림을 얻을 수 있음
+
+문자열로 이루어진 스트림을 map() 메소드를 이용하여 각 문자열의 길이로 이루어진 스트림으로 변환하는 예제
+*/
+		System.out.println("\n\n--- 스트림 변환 ---");
+		Stream<String> stre = Stream.of("HTML", "CSS", "JAVA", "JAVASCRIPT");
+		stre.map(s -> s.length()).forEach(System.out::println);
+
+		//여러 문자열이 저장된 배열을 각 문자열에 포함된 단어로 이루어진 스트림으로 변환하는 예제
+		String[] arr_ = {"I study hard", "You study JAVA", "I am hungry"};
+		Stream<String> strea = Arrays.stream(arr_);
+		strea.flatMap(s -> Stream.of(s.split(" +"))).forEach(System.out::println);
+/*
+# 스트림 제한
+limit() 메소드는 해당 스트림의 첫 번째 요소부터 전달된 개수만큼의 요소만으로 이루어진 새로운 스트림을 반환
+skip() 메소드는 해당 스트림의 첫 번째 요소부터 전달된 개수만큼의 요소를 제외한 나머지 요소만으로 이루어진 새로운 스트림을 반환
+*/
+		System.out.println("\n--- 스트림 제한 ---");
+		IntStream stream11 = IntStream.range(0, 10);
+		IntStream stream22 = IntStream.range(0, 10);
+		IntStream stream33 = IntStream.range(0, 10);
+
+		stream11.skip(4).forEach(n -> System.out.print(n + " "));
+		System.out.println();
+
+		stream22.limit(5).forEach(n -> System.out.print(n + " "));
+		System.out.println();
+
+		stream33.skip(3).limit(5).forEach(n -> System.out.print(n + " "));
+/*
+# 스트림 정렬
+sorted() 메소드는 해당 스트림을 주어진 비교자(comparator)를 이용하여 정렬함
+비교자를 전달하지 않으면 기본적으로 사전 편찬 순(natural order)으로 정렬하게 됨
+*/
+		System.out.println("\n\n--- 스트림 정렬 ---");
+		Stream<String> stream111 = Stream.of("JAVA", "HTML", "JAVASCRIPT", "CSS");
+		Stream<String> stream222= Stream.of("JAVA", "HTML", "JAVASCRIPT", "CSS");
+
+		stream111.sorted().forEach(s -> System.out.print(s + " "));
+		System.out.println();
+		
+		stream222.sorted(Comparator.reverseOrder()).forEach(s -> System.out.print(s + " "));
+/*
+# 스트림 연산 결과 확인
+peek() 메소드는 결과 스트림으로부터 요소를 소모하여 추가로 명시된 동작을 수행하며
+이 메소드는 원본 스트림에서 요소를 소모하지 않으므로, 주로 연산과 연산 사이에 결과를 확인하고 싶을 때 사용(디버깅 용도로 많이 사용)
+*/
+		System.out.println("\n\n--- 스트림 연산 결과 확인 ---");
+		IntStream streamm = IntStream.of(7, 5, 5, 2, 1, 2, 3, 5, 4, 6);
+		
+		streamm.peek(s -> System.out.println("원본 스트림 : " + s))
+		    .skip(2)
+		    .peek(s -> System.out.println("skip(2) 실행 후 : " + s))
+		    .limit(5)
+		    .peek(s -> System.out.println("limit(5) 실행 후 : " + s))
+		    .sorted()
+		    .peek(s -> System.out.println("sorted() 실행 후 : " + s))
+		    .forEach(n -> System.out.println(n));
+/* 
+위의 예제에서 첫 번째 요소인 7과 두 번째 요소인 5는 skip() 메소드에 의해 삭제되므로, 원본 스트림에서만 나타남
+세 번째 요소인 5는 skip() 메소드와 limit() 메소드가 실행된 후에도 존재하므로, 모두 나타암
+peek() 메소드는 스트림의 각 요소가 해당 중개 연산 후에 어떻게 변화하는지를 보여줌
+
+
+# 대표적인 중개 연산 메소드
+스트림 API에서 사용할 수 있는 대표적인 중개 연산을 위한 메소드
+메소드																				설명
+Stream<T> filter(Predicate<? super T> predicate)									해당 스트림에서 주어진 조건(predicate)에 맞는 요소만으로 구성된 새로운 스트림을 반환함.
+<R> Stream<R> map(Functoin<? super T, ? extends R> mapper)							해당 스트림의 요소들을 주어진 함수에 인수로 전달하여, 그 반환값으로 이루어진 새로운 스트림을 반환함.
+<R> Stream<R> flatMap(Functoin<? super T, ? extends Stream<? extends R>> mapper)	해당 스트림의 요소가 배열일 경우, 배열의 각 요소를 주어진 함수에 인수로 전달하여, 그 반환값으로 이루어진 새로운 스트림을 반환함.
+Stream<T> distinct()																해당 스트림에서 중복된 요소가 제거된 새로운 스트림을 반환함.
+																					내부적으로 Object 클래스의 equals() 메소드를 사용함.
+
+Stream<T> limit(long maxSize)							해당 스트림에서 전달된 개수만큼의 요소만으로 이루어진 새로운 스트림을 반환함.
+Stream<T> peek(Consumer<? super T> action)				결과 스트림으로부터 각 요소를 소모하여 추가로 명시된 동작(action)을 수행하여 새로운 스트림을 생성하여 반환함.
+Stream<T> skip(long n)									해당 스트림의 첫 번째 요소부터 전달된 개수만큼의 요소를 제외한 나머지 요소만으로 이루어진 새로운 스트림을 반환함.
+
+Stream<T> sorted()
+Stream<T> sorted(Comparator<? super T> comparator)
+해당 스트림을 주어진 비교자(comparator)를 이용하여 정렬함.
+비교자를 전달하지 않으면 영문사전 순(natural order)으로 정렬함.
+*/
 	}
 }
