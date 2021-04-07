@@ -1,6 +1,7 @@
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Comparator;
+import java.util.Optional;
 import java.util.Random;
 import java.util.stream.IntStream;
 import java.util.stream.Stream;
@@ -255,5 +256,47 @@ Stream<T> sorted(Comparator<? super T> comparator)
 해당 스트림을 주어진 비교자(comparator)를 이용하여 정렬함.
 비교자를 전달하지 않으면 영문사전 순(natural order)으로 정렬함.
 */
+/*
+# 스트림의 최종 연산(terminal operation)
+스트림 API에서 중개 연산을 통해 변환된 스트림은 마지막으로 최종 연산을 통해 각 요소를 소모하여 결과를 표시
+지연(lazy)되었던 모든 중개 연산들이 최종 연산 시에 모두 수행되는 것
+최종 연산 시에 모든 요소를 소모한 해당 스트림은 더는 사용할 수 없게 됨
+
+스트림 API에서 사용할 수 있는 대표적인 최종 연산과 그에 따른 메소드
+1. 요소의 출력 : forEach()
+2. 요소의 소모 : reduce()
+3. 요소의 검색 : findFirst(), findAny()
+4. 요소의 검사 : anyMatch(), allMatch(), noneMatch()
+5. 요소의 통계 : count(), min(), max()
+6. 요소의 연산 : sum(), average()
+7. 요소의 수집 : collect()
+
+# 요소의 출력
+forEach() 메소드는 스트림의 각 요소를 소모하여 명시된 동작을 수행
+반환 타입이 void이므로 보통 스트림의 모든 요소를 출력하는 용도로 많이 사용함
+*/
+		System.out.println("\n--- 요소의 출력 ---");
+		Stream<String> streamForeach = Stream.of("넷", "둘", "셋", "하나");
+		streamForeach.forEach(System.out::println);
+/*
+# 요소의 소모
+스트림의 최종 연산은 모두 스트림의 각 요소를 소모하여 연산을 수행하게 됨
+reduce() 메소드는 첫 번째와 두 번째 요소를 가지고 연산을 수행한 뒤, 그 결과와 세 번째 요소를 가지고 또다시 연산을 수행
+이런 식으로 해당 스트림의 모든 요소를 소모하여 연산을 수행하고, 그 결과를 반환하게 됨
+인수로 초깃값을 전달하면 초깃값과 해당 스트림의 첫 번째 요소와 연산을 시작하며, 그 결과와 두 번째 요소를 가지고 계속해서 연산을 수행하게 됨0
+
+스트림의 각 문자열 요소를 "++" 기호로 연결하여 출력하는 예제
+예제처럼 인수로 초깃값을 전달하는 reduce() 메소드의 반환 타입은 Optional<T>가 아닌 T 타입이며
+이유는 비어 있는 스트림과 reduce 연산을 할 경우 전달받은 초깃값을 그대로 반환해야 하기 때문
+*/
+		System.out.println("\n--- 요소의 소모 ---");
+		Stream<String> stream1Optional = Stream.of("넷", "둘", "셋", "하나");
+		Stream<String> stream2Optional = Stream.of("넷", "둘", "셋", "하나");
+		
+		Optional<String> result1 = stream1Optional.reduce((s1, s2) -> s1 + "++" + s2);
+		result1.ifPresent(System.out::println);
+		
+		String result2 = stream2Optional.reduce("시작", (s1, s2) -> s1 + "++" + s2);
+		System.out.println(result2);
 	}
 }
