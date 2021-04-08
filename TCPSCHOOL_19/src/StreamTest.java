@@ -2,6 +2,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.Optional;
+import java.util.OptionalInt;
 import java.util.Random;
 import java.util.stream.IntStream;
 import java.util.stream.Stream;
@@ -304,16 +305,33 @@ findFirst()와 findAny() 메소드는 해당 스트림에서 첫 번째 요소�
 두 메소드 모두 비어 있는 스트림에서는 비어있는 Optional 객체를 반환
 
 스트림의 모든 요소를 정렬한 후, 첫 번째에 위치한 요소를 출력하는 예제
+예제에서 볼 수 있듯이 두 메소드의 결과는 같게 출력됨
+하지만 병렬 스트림인 경우에는 findAny() 메소드를 사용해야만 정확한 연산 결과를 반환할 수 있음
 */
-IntStream stream1_in = IntStream.of(4, 2, 7, 3, 5, 1, 6);
-IntStream stream2_in = IntStream.of(4, 2, 7, 3, 5, 1, 6);
+		System.out.println("\n--- 요소의 검색 ---");
+		IntStream stream1_in = IntStream.of(4, 2, 7, 3, 5, 1, 6);
+		IntStream stream2_in = IntStream.of(4, 2, 7, 3, 5, 1, 6);
 
-OptionalInt result1_in = stream1_in.sorted().findFirst();
-System.out.println(result1_in.getAsInt());
+		OptionalInt result1_in = stream1_in.sorted().findFirst();
+		System.out.println(result1_in.getAsInt());
 
-OptionalInt result2_in = stream2_in.sorted().findAny();
-System.out.println(result2_in.getAsInt());
-//위의 예제에서 볼 수 있듯이 두 메소드의 결과는 같게 출력됨
-//하지만 병렬 스트림인 경우에는 findAny() 메소드를 사용해야만 정확한 연산 결과를 반환할 수 있음
+		OptionalInt result2_in = stream2_in.sorted().findAny();
+		System.out.println(result2_in.getAsInt());
+/*
+# 요소의 검사
+해당 스트림의 요소 중에서 특정 조건을 만족하는 요소가 있는지, 아니면 모두 만족하거나 모두 만족하지 않는지를 다음 메소드를 사용하여 확인할 수 있음
+1. anyMatch() : 해당 스트림의 일부 요소가 특정 조건을 만족할 경우에 true를 반환
+2. allMatch() : 해당 스트림의 모든 요소가 특정 조건을 만족할 경우에 true를 반환
+3. noneMatch() : 해당 스트림의 모든 요소가 특정 조건을 만족하지 않을 경우에 true를 반환
+세 메소드 모두 인수로 Predicate 객체를 전달받으며, 요소의 검사 결과는 boolean 값으로 반환함
+
+스트림의 모든 요소를 검사하여 80보다 큰 값을 가지는 요소가 하나라도 존재하는지를 검사하는 예제
+*/
+		System.out.println("\n--- 요소의 검사 ---");
+		IntStream stream1111 = IntStream.of(30, 90, 70, 10);
+		IntStream stream2222 = IntStream.of(30, 90, 70, 10);
+		
+		System.out.println(stream1111.anyMatch(n -> n > 80));
+		System.out.println(stream2222.allMatch(n -> n > 80));
 	}
 }
