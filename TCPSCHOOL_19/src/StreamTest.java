@@ -298,5 +298,22 @@ reduce() 메소드는 첫 번째와 두 번째 요소를 가지고 연산을 수
 		
 		String result2 = stream2Optional.reduce("시작", (s1, s2) -> s1 + "++" + s2);
 		System.out.println(result2);
+/*
+# 요소의 검색
+findFirst()와 findAny() 메소드는 해당 스트림에서 첫 번째 요소를 참조하는 Optional 객체를 반환
+두 메소드 모두 비어 있는 스트림에서는 비어있는 Optional 객체를 반환
+
+스트림의 모든 요소를 정렬한 후, 첫 번째에 위치한 요소를 출력하는 예제
+*/
+IntStream stream1_in = IntStream.of(4, 2, 7, 3, 5, 1, 6);
+IntStream stream2_in = IntStream.of(4, 2, 7, 3, 5, 1, 6);
+
+OptionalInt result1_in = stream1_in.sorted().findFirst();
+System.out.println(result1_in.getAsInt());
+
+OptionalInt result2_in = stream2_in.sorted().findAny();
+System.out.println(result2_in.getAsInt());
+//위의 예제에서 볼 수 있듯이 두 메소드의 결과는 같게 출력됨
+//하지만 병렬 스트림인 경우에는 findAny() 메소드를 사용해야만 정확한 연산 결과를 반환할 수 있음
 	}
 }
