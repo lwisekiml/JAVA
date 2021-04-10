@@ -4,6 +4,7 @@ import java.util.Comparator;
 import java.util.Optional;
 import java.util.OptionalInt;
 import java.util.Random;
+import java.util.stream.DoubleStream;
 import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
@@ -333,5 +334,26 @@ findFirst()와 findAny() 메소드는 해당 스트림에서 첫 번째 요소�
 		
 		System.out.println(stream1111.anyMatch(n -> n > 80));
 		System.out.println(stream2222.allMatch(n -> n > 80));
+/*
+# 요소의 통계 : count(), min(), max()
+count() 메소드는 해당 스트림의 요소의 총 개수를 long 타입의 값으로 반환
+max()와 min() 메소드를 사용하면 해당 스트림의 요소 중에서 가장 큰 값과 가장 작은 값을 가지는 요소를 참조하는 Optional 객체를 얻을 수 있음
+*/
+		System.out.println("\n--- 요소의 통계 ---");
+		IntStream stream1q = IntStream.of(30, 90, 70, 10);
+		IntStream stream2q = IntStream.of(30, 90, 70, 10);
+		System.out.println(stream1q.count());
+		System.out.println(stream2q.max().getAsInt());
+/*
+# 요소의 연산 : sum(), average()
+IntStream이나 DoubleStream과 같은 기본 타입 스트림에는 해당 스트림의 모든 요소에 대해 합과 평균을 구할 수 있는 sum()과 average() 메소드가 각각 정의
+average() 메소드는 각 기본 타입으로 래핑 된 Optional 객체를 반환
+*/
+		System.out.println("\n--- 요소의 연산 ---");
+		IntStream stream1w = IntStream.of(30, 90, 70, 10);
+		DoubleStream stream2w = DoubleStream.of(30.3, 90.9, 70.7, 10.1);
+
+		System.out.println(stream1w.sum());
+		System.out.println(stream2w.average().getAsDouble());
 	}
 }
