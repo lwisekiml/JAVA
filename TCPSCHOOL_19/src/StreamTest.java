@@ -1,9 +1,13 @@
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Comparator;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import java.util.OptionalInt;
 import java.util.Random;
+import java.util.stream.Collectors;
 import java.util.stream.DoubleStream;
 import java.util.stream.IntStream;
 import java.util.stream.Stream;
@@ -355,5 +359,83 @@ average() 메소드는 각 기본 타입으로 래핑 된 Optional 객체를 반
 
 		System.out.println(stream1w.sum());
 		System.out.println(stream2w.average().getAsDouble());
+/*
+# 요소의 수집
+collect() 메소드는 인수로 전달되는 Collectors 객체에 구현된 방법대로 스트림의 요소를 수집함
+Collectors 클래스에는 미리 정의된 다양한 방법이 클래스 메소드로 정의되어 있음
+사용자가 직접 Collector 인터페이스를 구현하여 자신만의 수집 방법을 정의 가능
+
+스트림 요소의 수집 용도별 사용할 수 있는 Collectors 메소드
+1. 스트림을 배열이나 컬렉션으로 변환 : toArray(), toCollection(), toList(), toSet(), toMap()
+2. 요소의 통계와 연산 메소드와 같은 동작을 수행 : counting(), maxBy(), minBy(), summingInt(), averagingInt() 등
+3. 요소의 소모와 같은 동작을 수행 : reducing(), joining()
+4. 요소의 그룹화와 분할 : groupingBy(), partitioningBy()
+
+collect() 메소드를 이용하여 해당 스트림을 리스트로 변환하는 예제
+*/
+		System.out.println("\n--- 요소의 수집 ---");
+		Stream<String> sq = Stream.of("넷", "둘", "하나", "셋");
+		List<String> lq = sq.collect(Collectors.toList());
+		Iterator<String> iter = lq.iterator();
+		while(iter.hasNext()) {
+		    System.out.print(iter.next() + " ");
+		}
+
+// Collectors 클래스의 partitioningBy() 메소드를 이용하여 해당 스트림의 각 요소별 글자 수에 따라 홀수와 짝수로 나누어 저장하는 예제
+
+		System.out.println();
+		System.out.println();
+		Stream<String> streamas = Stream.of("HTML", "CSS", "JAVA", "PHP");
+		Map<Boolean, List<String>> patition = streamas.collect(Collectors.partitioningBy(s -> (s.length() % 2) == 0));
+		
+		List<String> oddLengthList = patition.get(false);
+		System.out.println(oddLengthList);
+		
+		List<String> evenLengthList = patition.get(true);
+		System.out.println(evenLengthList);
+/*
+# 대표적인 최종 연산 메소드
+스트림 API에서 사용할 수 있는 대표적인 최종 연산을 위한 메소드는 다음과 같습니다.
+
+메소드
+설명
+void forEach(Consumer<? super T> action)	
+스트림의 각 요소에 대해 해당 요소를 소모하여 명시된 동작을 수행함.
+
+Optional<T> reduce(BinaryOperator<T> accumulator)
+T reduce(T identity, BinaryOperator<T> accumulator)
+처음 두 요소를 가지고 연산을 수행한 뒤, 그 결과와 다음 요소를 가지고 또다시 연산을 수행함. 이런 식으로 해당 스트림의 모든 요소를 소모하여 연산을 수행하고, 그 결과를 반환함.
+
+Optional<T> findFirst()
+Optional<T> findAny()
+해당 스트림에서 첫 번째 요소를 참조하는 Optional 객체를 반환함.
+(findAny() 메소드는 병렬 스트림일 때 사용함)
+
+boolean anyMatch(Predicate<? super T> predicate)
+해당 스트림의 일부 요소가 특정 조건을 만족할 경우에 true를 반환함.
+
+boolean allMatch(Predicate<? super T> predicate)	
+해당 스트림의 모든 요소가 특정 조건을 만족할 경우에 true를 반환함.
+
+boolean noneMatch(Predicate<? super T> predicate)	
+해당 스트림의 모든 요소가 특정 조건을 만족하지 않을 경우에 true를 반환함.
+
+long count()	
+해당 스트림의 요소의 개수를 반환함.
+
+Optional<T> max(Comparator<? super T> comparator)	
+해당 스트림의 요소 중에서 가장 큰 값을 가지는 요소를 참조하는 Optional 객체를 반환함.
+
+Optional<T> min(Comparator<? super T> comparator)
+해당 스트림의 요소 중에서 가장 작은 값을 가지는 요소를 참조하는 Optional 객체를 반환함.
+
+T sum()
+해당 스트림의 모든 요소에 대해 합을 구하여 반환함.
+
+Optional<T> average()
+해당 스트림의 모든 요소에 대해 평균값을 구하여 반환함.
+
+<R,A> R collect(Collector<? super T,A,R> collector)	인수로 전달되는 Collectors 객체에 구현된 방법대로 스트림의 요소를 수집함.
+*/
 	}
 }
