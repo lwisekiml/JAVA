@@ -1,4 +1,6 @@
 import java.util.Optional;
+import java.util.OptionalInt;
+import java.util.stream.IntStream;
 
 public class OptionalTest {
 	public static void main(String[] args) {
@@ -44,5 +46,40 @@ isPresent() 메소드를 이용하여 좀 더 안전하게 Optional 객체에 �
 		Optional<String> opt2 = Optional.empty(); // Optional를 null로 초기화함.
 		System.out.println(opt2.orElse("빈 Optional 객체"));
 		System.out.println(opt2.orElseGet(String::new));
+/*
+# 기본 타입의 Optional 클래스
+자바에서는 IntStream 클래스와 같이 기본 타입 스트림을 위한 별도의 Optional 클래스를 제공하고 있음
+1. OptionalInt 클래스
+2. OptionalLong 클래스
+3. OptionalDouble 클래스
+
+이러한 클래스는 반환 타입이 Optional<T> 타입이 아니라 해당 기본 타입이라는 사실만 제외하면 거의 모든 면에서 비슷함
+Optional 객체에서 get() 메소드를 사용하여 저장된 값에 접근할 수 있는 것처럼 클래스별로 저장된 값에 접근할 수 있는 다음과 같은 메소드를 제공하고 있음
+
+클래스			저장된 값에 접근하는 메소드
+Optional<T>		T get()
+OptionalInt		int getAsInt()
+OptionalLong	long getAsLong()
+OptionalDouble	double getAsDouble()
+*/ 
+		IntStream stream = IntStream.of(4, 2, 1, 3);
+		OptionalInt result = stream.findFirst();
+		System.out.println(result.getAsInt());
+/*
+# Optional 메소드
+Optional 클래스의 메소드는 다음과 같습니다.
+
+메소드	설명
+static <T> Optional<T> empty()	아무런 값도 가지지 않는 비어있는 Optional 객체를 반환함.
+T get()							Optional 객체에 저장된 값을 반환함.
+boolean isPresent()				저장된 값이 존재하면 true를 반환하고, 값이 존재하지 않으면 false를 반환함.
+static <T> Optional<T> of(T value)				null이 아닌 명시된 값을 가지는 Optional 객체를 반환함.
+static <T> Optional<T> ofNullable(T value)		명시된 값이 null이 아니면 명시된 값을 가지는 Optional 객체를 반환하며, 명시된 값이 null이면 비어있는 Optional 객체를 반환함.
+T orElse(T other)								저장된 값이 존재하면 그 값을 반환하고, 값이 존재하지 않으면 인수로 전달된 값을 반환함.
+T orElseGet(Supplier<? extends T> other)		저장된 값이 존재하면 그 값을 반환하고, 값이 존재하지 않으면 인수로 전달된 람다 표현식의 결괏값을 반환함.
+
+<X extends Throwable> T orElseThrow(Supplier<? extends X>  exceptionSupplier)	
+저장된 값이 존재하면 그 값을 반환하고, 값이 존재하지 않으면 인수로 전달된 예외를 발생시킴.
+*/
 	}
 }
