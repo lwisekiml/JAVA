@@ -1,3 +1,6 @@
+import java.time.LocalDate;
+import java.time.LocalTime;
+
 /*
 # java.time 패키지
 자바에서의 날짜 및 시간 처리
@@ -38,10 +41,29 @@ Instant 클래스는 특정 시점의 날짜와 시간을 나노초(nanosecond) 
 Period 클래스는 두 날짜 사이의 차이를 표현하는 데 사용되며, Duration 클래스는 두 시각 사이의 차이를 표현하는 데 사용됨 
 */
 public class JavaTimePackage {
-
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
+/*
+# LocalDate와 LocalTime
+# LocalDate 클래스와 LocalTime 클래스
+LocalDate 클래스 : 날짜 표현
+LocalTime 클래스 : 시간 표현
+java.time 패키지에 포함된 대부분의 클래스들은 이 두 클래스를 확장한 것이 많으므로, 우선 이 두 클래스를 잘 이해하는 것이 중요
 
+# 날짜와 시간 객체의 생성
+LocalDate와 LocalTime 클래스는 객체를 생성하기 위해서 now()와 of() 메소드라는 클래스 메소드를 제공
+
+now() 메소드 : 현재의 날짜와 시간을 이용하여 새로운 객체를 생성하여 반환
+of()  메소드 : 전달된 인수를 가지고 특정 날짜와 시간을 표현하는 새로운 객체를 생성하여 반환
+of() 메소드는 메소드 시그니처 이외에도 다양한 형태가 오버로딩되어 제공됨 
+*/
+		LocalDate today = LocalDate.now();
+		LocalTime present = LocalTime.now();
+		System.out.println(today + " " + present);
+		
+		// static LocalDate of(int year, int month, int dayOfMonth)
+		LocalDate birthDay = LocalDate.of(1982, 02, 19);
+		// static LocalTime of(int hour, int minute, int second, int nanoOfSecond)
+		LocalTime birthTime = LocalTime.of(02, 02, 00, 100000000);
+		System.out.println(birthDay + " " + birthTime);
 	}
-
 }
