@@ -1,5 +1,6 @@
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.time.temporal.ChronoField;
 
 /*
 # java.time 패키지
@@ -56,6 +57,7 @@ now() 메소드 : 현재의 날짜와 시간을 이용하여 새로운 객체를
 of()  메소드 : 전달된 인수를 가지고 특정 날짜와 시간을 표현하는 새로운 객체를 생성하여 반환
 of() 메소드는 메소드 시그니처 이외에도 다양한 형태가 오버로딩되어 제공됨 
 */
+		System.out.println("--- LocalDate와 LocalTime ---");
 		LocalDate today = LocalDate.now();
 		LocalTime present = LocalTime.now();
 		System.out.println(today + " " + present);
@@ -65,5 +67,81 @@ of() 메소드는 메소드 시그니처 이외에도 다양한 형태가 오버
 		// static LocalTime of(int hour, int minute, int second, int nanoOfSecond)
 		LocalTime birthTime = LocalTime.of(02, 02, 00, 100000000);
 		System.out.println(birthDay + " " + birthTime);
+/*
+# 날짜와 시간 객체에 접근하기
+LocalDate와 LocalTime 클래스는 특정 필드의 값을 가져오기 위해서 다음과 같이 다양한 getter 메소드를 제공
+
+LocalDate 클래스에서 제공하는 대표적인 getter 메소드
+메소드	설명
+int get(TemporalField field)		해당 날짜 객체의 명시된 필드의 값을 int형이나 long형으로 반환함.
+long getLong(TemporalField field)
+
+int getYear()						해당 날짜 객체의 연도(YEAR) 필드의 값을 반환함.
+Month getMonth()					해당 날짜 객체의 월(MONTH_OF_YEAR) 필드의 값을 Month 열거체를 이용하여 반환함.
+int getMonthValue()					해당 날짜 객체의 월(MONTH_OF_YEAR) 필드의 값을 반환함. (1~12)
+int getDayOfMonth()					해당 날짜 객체의 일(DAY_OF_MONTH) 필드의 값을 반환함. (1~31)
+int getDayOfYear()					해당 날짜 객체의 일(DAY_OF_YEAR) 필드의 값을 반환함. (1~365, 윤년이면 366)
+DayOfWeek getDayOfWeek()			해당 날짜 객체의 요일(DAY_OF_WEEK) 필드의 값을 DayOfWeek 열거체를 이용하여 반환함.
+ 
+기존의 Calendar 클래스에서는 1월을 0으로 표현하여 월의 범위가 0~11이었으며, 요일은 일요일부터 1로 표현했음
+하지만 java.time 패키지에서는 1월을 1로 표현하여 월의 범위가 1~12가 되었으며, 요일은 월요일부터 1로 표현하도록 변경됨 
+Calendar 클래스와 java.time 패키지의 클래스를 같이 사용할 때에는 특히 위와 같은 차이점에 주의해야 함
+*/
+		System.out.println("\n--- 날짜와 시간 객체에 접근하기 ---");
+		LocalDate today1 = LocalDate.now();
+		System.out.println("올해는 " + today1.getYear() + "년입니다.");
+		System.out.println("이번달은 " + today1.getMonthValue() + "월입니다.");
+		System.out.println("오늘은 " + today1.getDayOfWeek() + "입니다.");
+		System.out.println("오늘은 1년 중 " + today1.get(ChronoField.DAY_OF_YEAR) + "일째 날입니다.");
+/*
+LocalTime 클래스에서 제공하는 대표적인 getter 메소드
+
+메소드								설명
+int get(TemporalField field)		해당 시간 객체의 명시된 필드의 값을 int형이나 long형으로 반환함.
+long getLong(TemporalField field)
+
+int getHour()						해당 시간 객체의 시(HOUR_OF_DAY) 필드의 값을 반환함.
+int getMinute()						해당 시간 객체의 분(MINUTE_OF_HOUR) 필드의 값을 반환함.
+int getSecond()						해당 시간 객체의 초(SECOND_OF_MINUTE) 필드의 값을 반환함.
+int getNano()						해당 시간 객체의 나노초(NANO_OF_SECOND) 필드의 값을 반환함.
+*/
+		System.out.println("\n--- LocalTime class에서 제공하는 대표적인 getter 메소드 ---");
+		LocalTime present1 = LocalTime.now();
+		System.out.println("현재 시각은 " + present1.getHour() + "시 " + present1.getMinute() + "분입니다.");
+/*
+# TemporalField 인터페이스
+TemporalField 인터페이스는 월(month-of-year)과 시(hour-of-day)와 같이 날짜와 시간과 관련된 필드를 정의해 놓은 인터페이스이며
+구현하여 날짜와 시간을 나타낼 때 사용하는 열거체는 ChronoField 임
+java.time 패키지를 구성하는 클래스의 메소드에서는 이 열거체를 이용하여 날짜와 시간을 처리하고 있음 
+
+ChronoField 열거체에 정의된 대표적인 열거체 상수
+
+열거체 상수			설명
+ERA					시대
+YEAR				연도
+MONTH_OF_YEAR		월
+DAY_OF_MONTH		일
+DAY_OF_WEEK			요일 (월요일:1, 화요일:2, ..., 일요일:7)
+AMPM_OF_DAY			오전/오후
+HOUR_OF_DAY			시(0~23)
+CLOCK_HOUR_OF_DAY	시(1~24)
+HOUR_OF_AMPM		시(0~11)
+CLOCK_HOUR_OF_AMPM	시(1~12)
+MINUTE_OF_HOUR		분
+SECOND_OF_MINUTE	초
+DAY_OF_YEAR			해당 연도의 몇 번째 날 (1~365, 윤년이면 366)
+EPOCH_DAY			EPOCH(1970년 1월 1일)을 기준으로 몇 번째 날
+*/ 
+		System.out.println("\n--- TemporalField ---");
+		LocalTime present2 = LocalTime.now();
+		String ampm;
+
+		if(present2.get(ChronoField.AMPM_OF_DAY) == 0) {
+			ampm = "오전";
+		} else {
+			ampm = "오후";
+		}
+		
+		System.out.println("지금은 " + ampm + " " + present2.get(ChronoField.HOUR_OF_AMPM) + "시입니다.");
 	}
 }
