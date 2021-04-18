@@ -1,6 +1,7 @@
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.temporal.ChronoField;
+import java.time.temporal.ChronoUnit;
 
 /*
 # java.time 패키지
@@ -150,7 +151,7 @@ with() 메소드를 사용하면 값이 변경될 필드를 사용자가 직접 
 특정 필드의 값을 변경하기 위해 미리 정의되어 제공되는 다양한 with() 메소드를 사용 가능 
 
 LocalDate 클래스에서 제공하는 with() 메소드
-메소드	설명
+메소드												설명
 LocalDate with(TemporalField field, long newValue)	해당 날짜 객체에서 특정 필드를 전달된 새로운 값으로 설정한 새로운 날짜 객체를 반환함.
 LocalDate withYear(int year)						해당 날짜 객체에서 연도(YEAR) 필드를 전달된 새로운 값으로 설정한 새로운 날짜 객체를 반환함.
 LocalDate withMonth(int month)						해당 날짜 객체에서 월(MONTH_OF_YEAR) 필드를 전달된 새로운 값으로 설정한 새로운 날짜 객체를 반환함.
@@ -163,5 +164,32 @@ LocalDate withDayOfYear(int dayOfYear)				해당 날짜 객체에서 DAY_OF_YEAR
 
 		LocalDate otherDay2 = today.withYear(1982);
 		System.out.println("올해는 " + otherDay2.getYear() + "년입니다.");
+/*
+LocalTime 클래스에서 제공하는 with() 메소드
+
+메소드												설명
+LocalTime with(TemporalField field, long newValue)	해당 시간 객체에서 특정 필드를 전달된 새로운 값으로 설정한 새로운 시간 객체를 반환함.
+LocalTime withHour(int hour)						해당 시간 객체에서 시(HOUR_OF_DAY) 필드를 전달된 새로운 값으로 설정한 새로운 시간 객체를 반환함.
+LocalTime withMinute(int minute)					해당 시간 객체에서 분(MINUTE_OF_HOUR) 필드를 전달된 새로운 값으로 설정한 새로운 시간 객체를 반환함.
+LocalTime withSecond(int second)					해당 시간 객체에서 초(SECOND_OF_MINUTE) 필드를 전달된 새로운 값으로 설정한 새로운 시간 객체를 반환함.
+LocalTime withNano(int nanoOfSecond)				해당 시간 객체에서 나노초(NANO_OF_SECOND) 필드를 전달된 새로운 값으로 설정한 새로운 시간 객체를 반환함.
+*/
+		System.out.println("\n--- LocalTime 클래스에서 제공하는 with() 메소드 ---");
+		LocalTime present4 = LocalTime.now();
+		System.out.println("현재 시각은 " + present4.getHour() + "시입니다.");
+
+		LocalTime otherTime4 = present.withHour(8);
+		System.out.println("현재 시각은 " + otherTime4.getHour() + "시입니다.");
+
+// with() 메소드 이외에도 특정 필드의 값을 더하거나 뺄 수 있는 다양한 plus()와 minus() 메소드도 제공
+		System.out.println("\n--- 특정 필드의 값을 더하거나 뺄 수 있는 다양한 plus()와 minus() 메소드 ---");
+		LocalTime present5 = LocalTime.now();
+		System.out.println("현재 시각은 " + present5.get(ChronoField.HOUR_OF_DAY) + "시입니다.");
+
+		LocalTime otherTime5 = present.plus(2, ChronoUnit.HOURS);
+		System.out.println("바뀐 시간은 " + otherTime5.getHour() + "시입니다.");
+
+		LocalTime anotherTime5 = present.minus(6, ChronoUnit.HOURS);
+		System.out.println("바뀐 시간은 " + anotherTime5.getHour() + "시입니다.");
 	}
 }
