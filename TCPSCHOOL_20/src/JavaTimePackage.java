@@ -143,5 +143,25 @@ EPOCH_DAY			EPOCH(1970년 1월 1일)을 기준으로 몇 번째 날
 		}
 		
 		System.out.println("지금은 " + ampm + " " + present2.get(ChronoField.HOUR_OF_AMPM) + "시입니다.");
+/*
+# 날짜와 시간 객체의 필드값 변경
+LocalDate와 LocalTime 클래스는 날짜와 시간 객체에 접근하여 특정 필드의 값을 변경하기 위해서 with() 메소드를 사용
+with() 메소드를 사용하면 값이 변경될 필드를 사용자가 직접 명시 가능
+특정 필드의 값을 변경하기 위해 미리 정의되어 제공되는 다양한 with() 메소드를 사용 가능 
+
+LocalDate 클래스에서 제공하는 with() 메소드
+메소드	설명
+LocalDate with(TemporalField field, long newValue)	해당 날짜 객체에서 특정 필드를 전달된 새로운 값으로 설정한 새로운 날짜 객체를 반환함.
+LocalDate withYear(int year)						해당 날짜 객체에서 연도(YEAR) 필드를 전달된 새로운 값으로 설정한 새로운 날짜 객체를 반환함.
+LocalDate withMonth(int month)						해당 날짜 객체에서 월(MONTH_OF_YEAR) 필드를 전달된 새로운 값으로 설정한 새로운 날짜 객체를 반환함.
+LocalDate withDayOfMonth(int dayOfMonth)			해당 날짜 객체에서 일(DAY_OF_MONTH) 필드를 전달된 새로운 값으로 설정한 새로운 날짜 객체를 반환함.
+LocalDate withDayOfYear(int dayOfYear)				해당 날짜 객체에서 DAY_OF_YEAR 필드를 전달된 새로운 값으로 설정한 새로운 날짜 객체를 반환함.
+*/ 
+		System.out.println("\n--- 날짜와 시간 객체의 필드값 변경 ---");
+		LocalDate today2 = LocalDate.now();
+		System.out.println("올해는 " + today2.getYear() + "년입니다.");
+
+		LocalDate otherDay2 = today.withYear(1982);
+		System.out.println("올해는 " + otherDay2.getYear() + "년입니다.");
 	}
 }
