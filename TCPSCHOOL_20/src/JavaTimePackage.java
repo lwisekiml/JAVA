@@ -191,5 +191,20 @@ LocalTime withNano(int nanoOfSecond)				해당 시간 객체에서 나노초(NAN
 
 		LocalTime anotherTime5 = present.minus(6, ChronoUnit.HOURS);
 		System.out.println("바뀐 시간은 " + anotherTime5.getHour() + "시입니다.");
+/*
+# 날짜와 시간 객체의 비교
+LocalDate와 LocalTime 클래스에도 객체를 비교할 수 있는 compareTo() 메소드가 오버라이딩되어 있음
+더욱 편리하게 날짜와 시간 객체를 서로 비교할 수 있도록 다음과 같은 메소드를 제공
+1. isEqual() 메소드 : equals() 메소드와는 달리 오직 날짜만을 비교함. (LocalDate 클래스에서만 제공)
+2. isBefore() 메소드 : 두 개의 날짜와 시간 객체를 비교하여 현재 객체가 명시된 객체보다 앞선 시간인지를 비교함.
+3. isAfter() 메소드 : 두 개의 날짜와 시간 객체를 비교하여 현재 객체가 명시된 객체보다 늦은 시간인지를 비교함.
+*/
+		System.out.println("\n--- 날짜와 시간 객체의 비교 ---");
+		LocalDate today5 = LocalDate.now();
+		LocalDate otherDay5 = LocalDate.of(1982, 02, 19);
+
+		System.out.println(today5.compareTo(otherDay5));
+		System.out.println(today5.isBefore(otherDay5));
+		System.out.println(today5.isEqual(otherDay5));
 	}
 }
